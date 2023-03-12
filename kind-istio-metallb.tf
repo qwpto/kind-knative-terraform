@@ -1,5 +1,5 @@
 module "kind-istio-metallb" {
-  source          = "git@github.com:GrassShrimp/kind-istio-metallb.git"
+  source          = "git@github.com:qwpto/kind-istio-metallb.git"
   ISTIO_VERSION   = var.ISTIO_VERSION
   KIND_VERSION    = var.KIND_VERSION
   METALLB_VERSION = var.METALLB_VERSION
