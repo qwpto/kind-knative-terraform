@@ -48,3 +48,12 @@ destroy kind cluster
 ```bash
 $ terraform destroy -auto-approve
 ```
+
+
+DEBUGGING:
+kubectl get pods --all-namespaces
+kubectl describe pods --all-namespaces
+kubectl get all -n metallb
+kubectl logs pod/metallb-controller-c55c89d-x9kj7
+kubectl get pod -n kube-system -o wide
+kubectl get svc kubernetes
