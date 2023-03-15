@@ -16,7 +16,7 @@ resource "null_resource" "install_knative_layer_kourier" {
 
 resource "null_resource" "configure_dns_for_knative_serving" {
   provisioner "local-exec" {
-    command = "kubectl patch configmap -n knative-serving config-domain -p '{\"data\": {\"127.0.0.1.nip.io\": \"\"}}'"
+    command = "kubectl patch configmap -n knative-serving config-domain -p \"{\"data\": {\"127.0.0.1.nip.io\": \"\"}}\""
   }
   depends_on = [ null_resource.install_knative_layer_kourier ]
 }
@@ -57,7 +57,7 @@ resource "kubernetes_service" "kourier_service" {
 
 resource "null_resource" "configure_knative_to_use_kourier" {
   provisioner "local-exec" {
-    command = "kubectl patch configmap -n knative-serving config-network --type merge --patch '{\"data\":{\"ingress.class\":\"kourier.ingress.networking.knative.dev\"}}'"
-  }
+    command = "echo kubectl patch configmap/config-network --namespace knative-serving --type merge --patch '{\\\"data\\\":{\\\"ingress-class\\\":\\\"kourier.ingress.networking.knative.dev\\\"}}'"
+  }# https://github.com/kubernetes/kubectl/issues/519 kubectl patch configmap/config-network --namespace knative-serving --type merge --patch '{\"data\":{\"ingress-class\":\"kourier.ingress.networking.knative.dev\"}}'
   depends_on = [ kubernetes_service.kourier_service ]
 }
