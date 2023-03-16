@@ -8,10 +8,10 @@ variable "KOURIER_VERSION" {
 #   default = "v1.0.0"
 # }
 variable "KNATIVE_EVENTING_VERSION" {
-  default = "v1.0.3"
+  default = "v1.7.7"
 }
 variable "NATSS_EVENTING_VERSION" {
-  default = "v0.20.0"
+  default = "v1.3.6"
 }
 variable "KIND_VERSION" {
   # default = "v1.21.14"

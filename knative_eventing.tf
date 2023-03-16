@@ -42,7 +42,7 @@ resource "helm_release" "nats-streaming" {
 
 resource "null_resource" "install_the_nats_streaming_channel" {
   provisioner "local-exec" {
-    command = "kubectl apply --filename https://github.com/knative-sandbox/eventing-natss/releases/download/${var.NATSS_EVENTING_VERSION}/eventing-natss.yaml"
+    command = "kubectl apply --filename https://github.com/knative-sandbox/eventing-natss/releases/download/knative-${var.NATSS_EVENTING_VERSION}/eventing-natss.yaml"
   }
   provisioner "local-exec" {
     command = "kubectl wait deployment --all --timeout=-1s --for=condition=Available -n knative-eventing"
