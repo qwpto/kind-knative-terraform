@@ -17,7 +17,12 @@ resource "null_resource" "install_knative_layer_kourier" {
 resource "null_resource" "configure_dns_for_knative_serving" {
   provisioner "local-exec" {
     # command = "kubectl patch configmap -n knative-serving config-domain -p \"{\"data\": {\"127.0.0.1.nip.io\": \"\"}}\""
-    command = "kubectl patch configmap -n knative-serving config-domain -p '{\"data\": {\"127.0.0.1.sslip.io\": \"\"}}'"
+    # command = "kubectl patch configmap -n knative-serving config-domain -p '{\"data\": {\"127.0.0.1.sslip.io\": \"\"}}'"
+    # command = "cmd.exe /c  \"echo kubectl patch configmap/config-domain --namespace knative-serving --type merge --patch \"{\"data\":{\"127.0.0.1.sslip.io\":\"\"}}\"\""
+    #must be run in a regular command prompt not powershell, or possibly omit '' https://stackoverflow.com/questions/74890629/how-can-use-a-powershell-script-to-run-the-terraform-cli-and-pass-a-variable-of
+    command = "kubectl patch configmap/config-domain --namespace knative-serving --type merge --patch {\"data\":{\"127.0.0.1.sslip.io\":\"\"}}"
+    #this worked in batch: kubectl patch configmap/config-domain --namespace knative-serving --type merge --patch "{\"data\":{\"127.0.0.1.sslip.io\":\"\"}}"
+    #check with kubectl describe configmap/config-domain --namespace knative-serving
   }#https://knative.dev/blog/articles/set-up-a-local-knative-environment-with-kind/
   depends_on = [ null_resource.install_knative_layer_kourier ]
 }

@@ -9,6 +9,9 @@ resource "kind_cluster" "knative" {
       extraPortMappings:
       - containerPort: 31080
         hostPort: 80
+        ## expose port 31443 of the node to port 443 on the host
+      - containerPort: 31443
+        hostPort: 443        
   KIONF
   wait_for_ready = true
 
