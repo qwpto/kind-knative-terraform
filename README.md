@@ -20,29 +20,31 @@ $ terraform apply -auto-approve
 ```
 List all pods from kind cluster
 ```bash
-$ kubectl get pods -A
+>kubectl get pods --all-namespaces
 NAMESPACE            NAME                                            READY   STATUS    RESTARTS   AGE
-knative-eventing     eventing-controller-658f454d9d-kj8wd            1/1     Running   0          69s
-knative-eventing     eventing-webhook-69fdcdf8d4-tbmfr               1/1     Running   0          69s
-knative-eventing     natss-ch-controller-55cb87c66f-d8lsh            1/1     Running   0          23s
-knative-eventing     natss-ch-dispatcher-846bb5846b-tvbqf            1/1     Running   0          23s
-knative-eventing     natss-webhook-7d7f99b9d6-lq5th                  1/1     Running   0          23s
-knative-serving      3scale-kourier-control-94d88747c-hnxcv          1/1     Running   0          103s
-knative-serving      activator-85cd6f6f9-hvrkv                       1/1     Running   0          2m13s
-knative-serving      autoscaler-7959969587-tjw7k                     1/1     Running   0          2m13s
-knative-serving      controller-577558f799-gckq4                     1/1     Running   0          2m13s
-knative-serving      webhook-78f446786-ghzzz                         1/1     Running   0          2m13s
-kourier-system       3scale-kourier-gateway-6577686f94-x4vnz         1/1     Running   0          103s
-kube-system          coredns-74ff55c5b-8zbcb                         1/1     Running   0          2m38s
-kube-system          coredns-74ff55c5b-lhww5                         1/1     Running   0          2m38s
-kube-system          etcd-knative-control-plane                      1/1     Running   0          2m50s
-kube-system          kindnet-q7ccs                                   1/1     Running   0          2m37s
-kube-system          kube-apiserver-knative-control-plane            1/1     Running   0          2m50s
-kube-system          kube-controller-manager-knative-control-plane   1/1     Running   0          2m50s
-kube-system          kube-proxy-hl6n4                                1/1     Running   0          2m37s
-kube-system          kube-scheduler-knative-control-plane            1/1     Running   0          2m49s
-local-path-storage   local-path-provisioner-78776bfc44-82ggh         1/1     Running   0          2m38s
-natss                nats-streaming-0                                2/2     Running   0          49s
+knative-eventing     eventing-controller-647f575b78-s97r2            1/1     Running   0          12m
+knative-eventing     eventing-webhook-6d9dd8d8cd-69g48               1/1     Running   0          12m
+knative-eventing     nats-webhook-7cbff6b6dd-9bv87                   1/1     Running   0          11m
+knative-eventing     natss-ch-controller-6f79965956-c6vr9            1/1     Running   0          11m
+knative-eventing     natss-ch-dispatcher-848cf558f5-kwjwc            1/1     Running   0          11m
+knative-serving      activator-648f778cfd-tbnn9                      1/1     Running   0          13m
+knative-serving      autoscaler-64f7fbc57f-wghvj                     1/1     Running   0          13m
+knative-serving      controller-5855dcb94-ds9fb                      1/1     Running   0          13m
+knative-serving      domain-mapping-65f96fff86-lhgtz                 1/1     Running   0          13m
+knative-serving      domainmapping-webhook-d49d4cdd4-gff77           1/1     Running   0          13m
+knative-serving      net-kourier-controller-66546b8545-x9msd         1/1     Running   0          12m
+knative-serving      webhook-87fbc58c5-769jr                         1/1     Running   0          13m
+kourier-system       3scale-kourier-gateway-6966cb4956-vtktr         1/1     Running   0          12m
+kube-system          coredns-78fcd69978-6dwx9                        1/1     Running   0          13m
+kube-system          coredns-78fcd69978-hrgrv                        1/1     Running   0          13m
+kube-system          etcd-knative-control-plane                      1/1     Running   0          14m
+kube-system          kindnet-7c5n9                                   1/1     Running   0          13m
+kube-system          kube-apiserver-knative-control-plane            1/1     Running   0          14m
+kube-system          kube-controller-manager-knative-control-plane   1/1     Running   0          14m
+kube-system          kube-proxy-klgs5                                1/1     Running   0          13m
+kube-system          kube-scheduler-knative-control-plane            1/1     Running   0          14m
+local-path-storage   local-path-provisioner-58c8ccd54c-qzjcd         1/1     Running   0          13m
+natss                nats-streaming-0                                2/2     Running   0          11m
 ```
 destroy kind cluster
 ```bash
@@ -58,3 +60,6 @@ kubectl get pod -n kube-system -o wide
 kubectl get svc kubernetes
 kubectl logs <cilium-pod-that-failed-to-start>  -n kube-system --previous --timestamps
 cilium status
+kubectl --namespace kourier-system get service kourier
+kubectl get ksvc
+kubectl describe configmap/config-network --namespace knative-serving

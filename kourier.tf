@@ -64,7 +64,8 @@ resource "kubernetes_service" "kourier_service" {
 resource "null_resource" "configure_knative_to_use_kourier" {
   provisioner "local-exec" {
     # command = "echo kubectl patch configmap/config-network --namespace knative-serving --type merge --patch '{\\\"data\\\":{\\\"ingress-class\\\":\\\"kourier.ingress.networking.knative.dev\\\"}}'"
-    command = "echo kubectl patch configmap/config-network --namespace knative-serving --type merge --patch '{\"data\":{\"ingress-class\":\"kourier.ingress.networking.knative.dev\"}}'"
+    # command = "kubectl patch configmap/config-network --namespace knative-serving --type merge --patch '{\"data\":{\"ingress-class\":\"kourier.ingress.networking.knative.dev\"}}'"
+    command = "kubectl patch configmap/config-network --namespace knative-serving --type merge --patch {\"data\":{\"ingress-class\":\"kourier.ingress.networking.knative.dev\"}}"
   }# https://github.com/kubernetes/kubectl/issues/519 kubectl patch configmap/config-network --namespace knative-serving --type merge --patch '{\"data\":{\"ingress-class\":\"kourier.ingress.networking.knative.dev\"}}'
   depends_on = [ kubernetes_service.kourier_service ]
 }
