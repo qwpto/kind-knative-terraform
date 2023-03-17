@@ -1,5 +1,9 @@
 terraform {
   required_providers {
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.14"
+    }
     kind = {
       source = "unicell/kind"
       version = "0.0.2-u2"

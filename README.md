@@ -63,3 +63,7 @@ cilium status
 kubectl --namespace kourier-system get service kourier
 kubectl get ksvc
 kubectl describe configmap/config-network --namespace knative-serving
+kubectl apply --filename service.yaml
+curl -v http://helloworld-go.default.127.0.0.1.sslip.io
+kubectl get -n knative-eventing cm config-br-defaults -o yaml 
+kubectl -n default get brokers
