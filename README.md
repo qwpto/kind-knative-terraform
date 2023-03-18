@@ -67,3 +67,8 @@ kubectl apply --filename service.yaml
 curl -v http://helloworld-go.default.127.0.0.1.sslip.io
 kubectl get -n knative-eventing cm config-br-defaults -o yaml 
 kubectl -n default get brokers
+kubectl -n quick-setup-sample -l="serving.knative.dev/service=event-display" logs -c user-container
+kubectl -n quick-setup-sample -l="serving.knative.dev/service=failer" logs -c user-container
+kubectl --namespace external-cluster-sample get events
+kubectl --namespace knative-debug logs -l app=fn -c user-container
+https://knative.dev/docs/eventing/troubleshooting/#check-created-resources
