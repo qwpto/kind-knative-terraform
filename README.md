@@ -72,3 +72,4 @@ kubectl -n quick-setup-sample -l="serving.knative.dev/service=failer" logs -c us
 kubectl --namespace external-cluster-sample get events
 kubectl --namespace knative-debug logs -l app=fn -c user-container
 https://knative.dev/docs/eventing/troubleshooting/#check-created-resources
+dashboard https://istio.io/latest/docs/setup/platform-setup/kind/ 
