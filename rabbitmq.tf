@@ -169,10 +169,16 @@ resource "null_resource" "install_rabbitmq" {
   depends_on = [ null_resource.install_knative_eventing ]
 }
 
+resource "time_sleep" "wait_for_install" {
+  depends_on = [null_resource.install_rabbitmq]
+
+  create_duration = "180s"
+}
+
 resource "kubectl_manifest" "RabbitMQlocalinstance" {
   yaml_body = local.RabbitMqLocalCluster
   depends_on = [
-    null_resource.install_rabbitmq
+    time_sleep.wait_for_install
   ]
 }
 
